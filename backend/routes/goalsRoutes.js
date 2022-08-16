@@ -1,10 +1,8 @@
-const express = require('express');
+const router = require('express').Router();
 
-const router = express.Router();
+const goalControllers = require('../controllers/goalsController');
 
-router.get('/', (req, res) => {
-	res.json({ message: 'get Goals' });
-});
+router.get('/', goalControllers.getGoals);
 
 router.post('/', (req, res) => {
 	res.json({ message: 'Set Goals' });
