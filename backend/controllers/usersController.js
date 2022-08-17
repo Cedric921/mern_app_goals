@@ -36,7 +36,8 @@ exports.registerUser = asyncHandler(async (req, res) => {
 		res.status(201).send({
 			_id: user._id,
 			name: user.name,
-			email: user.email,
+         email: user.email,
+         token : generateToken(user._id)
 		});
 	} else {
 		res.status(404);
@@ -60,6 +61,7 @@ exports.loginUser = asyncHandler(async (req, res) => {
 			_id: user._id,
 			name: user.name,
 			email: user.email,
+			token: generateToken(user._id),
 		});
 	} else {
 		res.status(404);
@@ -69,21 +71,13 @@ exports.loginUser = asyncHandler(async (req, res) => {
 
 // @desc Set users
 // @routes POST /api/users/me
-// @access Public
+// @access Private
 exports.getMe = asyncHandler(async (req, res) => {
 	res.json({ message: 'User data display' });
 });
 
-// // @desc Update user
-// // @routes PUT /api/users/:id
-// // @access Public
-// exports.updateUser = (req, res) => {
-// 	res.json({ message: 'Update user ' });
-// };
-
-// // @desc Delete users
-// // @routes DELETE /api/users/:id
-// // @access Public
-// exports.deleteUser = (req, res) => {
-// 	res.json({ message: 'Delete user ' });
-// };
+const generateToken = (id) => {
+	return jwt.sign({ id }, process.env.JWT_SECRET, {
+		expiresIn: '30d',
+	});
+};
