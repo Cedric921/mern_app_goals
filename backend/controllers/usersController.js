@@ -49,7 +49,22 @@ exports.registerUser = asyncHandler(async (req, res) => {
 // @routes POST /api/users/login
 // @access Public
 exports.loginUser = asyncHandler(async (req, res) => {
-	res.json({ message: 'Login users ' });
+	const { email, password } = req.body;
+
+	//check for email
+	const user = await User.findOne({ email });
+
+	//check password
+	if (user && (await bcrypt.compare(password, user.password))) {
+		res.send({
+			_id: user._id,
+			name: user.name,
+			email: user.email,
+		});
+	} else {
+		res.status(404);
+		throw new Error('Invalid credential');
+	}
 });
 
 // @desc Set users
