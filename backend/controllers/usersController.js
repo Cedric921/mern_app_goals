@@ -36,8 +36,8 @@ exports.registerUser = asyncHandler(async (req, res) => {
 		res.status(201).send({
 			_id: user._id,
 			name: user.name,
-         email: user.email,
-         token : generateToken(user._id)
+			email: user.email,
+			token: generateToken(user._id),
 		});
 	} else {
 		res.status(404);
@@ -73,7 +73,12 @@ exports.loginUser = asyncHandler(async (req, res) => {
 // @routes POST /api/users/me
 // @access Private
 exports.getMe = asyncHandler(async (req, res) => {
-	res.json({ message: 'User data display' });
+	const { _id, name, email } = await User.findById(req.user.id);
+	res.status(200).send({
+		_id: _id,
+		name,
+		email,
+	}); 
 });
 
 const generateToken = (id) => {
