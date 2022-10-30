@@ -78,11 +78,11 @@ exports.getMe = asyncHandler(async (req, res) => {
 		_id: _id,
 		name,
 		email,
-	}); 
+	});
 });
 
 const generateToken = (id) => {
 	return jwt.sign({ id }, process.env.JWT_SECRET, {
-		expiresIn: '30d',
+		expiresIn: '1d',
 	});
 };
