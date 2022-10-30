@@ -33,6 +33,7 @@ exports.registerUser = asyncHandler(async (req, res) => {
 	});
 
 	if (user) {
+		res.setHeader('Access-Control-Allow-Origin', '*');
 		res.status(201).send({
 			_id: user._id,
 			name: user.name,
@@ -43,7 +44,6 @@ exports.registerUser = asyncHandler(async (req, res) => {
 		res.status(404);
 		throw new Error('Invalid user');
 	}
-	res.json({ message: 'user created' });
 });
 
 // @desc Set users

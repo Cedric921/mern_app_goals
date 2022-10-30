@@ -2,6 +2,8 @@ import { BACKEND_API } from '../../config/keys';
 
 const register = async (userData) => {
 	const res = await fetch(`${BACKEND_API}/api/users`, {
+		headers: { cors: 'no-cors' },
+		method: 'POST',
 		body: JSON.stringify(userData),
 	});
 	const data = await res.json();

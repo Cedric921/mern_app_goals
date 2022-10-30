@@ -1,21 +1,48 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { register, reset } from '../features/auth/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
-	const [user, setUser] = useState({
+	const [userInput, setUserInput] = useState({
 		name: '',
 		email: '',
 		password: '',
 		password2: '',
 	});
 
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
+
+	const { user, isLoading, isError, isSuccess, message } = useSelector(
+		(state) => state.auth
+	);
+
+	console.log(user);
+
+	useEffect(() => {
+		if (isError) console.log(message);
+		if (isSuccess || user) navigate('/');
+
+		dispatch(reset());
+	}, [user, isError, isSuccess, message, navigate, dispatch]);
+
 	const handleChange = (e) => {
-		setUser((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+		setUserInput((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log(user);
+
+		if (userInput.password !== userInput.password2) {
+			console.log('password must match');
+			return;
+		} else {
+			dispatch(register(userInput));
+		}
 	};
+
+	if (isLoading) return <p>....loading</p>;
 	return (
 		<>
 			<section className='heading'>
