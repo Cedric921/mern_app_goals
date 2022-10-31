@@ -1,19 +1,37 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import { login, reset } from '../features/auth/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-	const [user, setUser] = useState({
+	const [userInput, setUserInput] = useState({
 		email: '',
 		password: '',
 	});
 
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	const { user, isLoading, isError, isSuccess, message } = useSelector(
+		(state) => state.auth
+	);
+
+	useEffect(() => {
+		if (isError) toast.error(message);
+		if (isSuccess || user) navigate('/');
+		dispatch(reset());
+	}, [user, isLoading, isError, isSuccess, navigate, dispatch, message]);
+
 	const handleChange = (e) => {
-		setUser((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+		setUserInput((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log(user);
+		dispatch(login(userInput));
 	};
+
+	if (isLoading) <p>loading ...</p>;
 	return (
 		<>
 			<section className='heading'>

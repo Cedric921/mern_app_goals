@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { register, reset } from '../features/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Register = () => {
 	const [userInput, setUserInput] = useState({
@@ -34,7 +35,7 @@ const Register = () => {
 		e.preventDefault();
 
 		if (userInput.password !== userInput.password2) {
-			console.log('password must match');
+			toast.error('password must match');
 			return;
 		} else {
 			dispatch(register(userInput));
