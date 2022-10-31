@@ -73,12 +73,7 @@ exports.loginUser = asyncHandler(async (req, res) => {
 // @routes POST /api/users/me
 // @access Private
 exports.getMe = asyncHandler(async (req, res) => {
-	const { _id, name, email } = await User.findById(req.user.id);
-	res.status(200).send({
-		_id: _id,
-		name,
-		email,
-	});
+	res.status(200).send(req.user);
 });
 
 const generateToken = (id) => {
