@@ -115,4 +115,23 @@ form {
 	cursor: pointer;
 }
 
+.content {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.goal {
+	box-sizing: border-box;
+	background-color: #ddf3f3;
+	padding: 10px;
+	margin: 5px;
+	width: 48%;
+	text-align: center;
+	border-radius: 5px;
+}
+
+.goal h2 {
+	color: #3c6080;
+}
+
 
