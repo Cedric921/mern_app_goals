@@ -72,6 +72,11 @@ form {
 	justify-content: center;
 }
 
+.form-group {
+	display: flex;
+	flex-direction: column;
+}
+
 .form-control {
 	padding: 8px;
 	margin: 5px;
