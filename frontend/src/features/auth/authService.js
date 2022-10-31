@@ -1,15 +1,14 @@
 import { BACKEND_API } from '../../config/keys';
+import axios from 'axios';
 
 const register = async (userData) => {
-	const res = await fetch(`${BACKEND_API}/api/users`, {
-		headers: { cors: 'no-cors' },
-		method: 'POST',
-		body: JSON.stringify(userData),
-	});
-	const data = await res.json();
-	if (data) localStorage.setItem('user', JSON.stringify(data.token));
+	console.log(userData);
+	// const res = await axios.post(`${BACKEND_API}/api/users`, userData);
+	const res = axios.post(`${BACKEND_API}/api/users`, userData);
+	console.log(res.data && res.data);
+	if (res.data) localStorage.setItem('user', JSON.stringify(res.data.token));
 
-	return data;
+	return res.data;
 };
 
 const authService = { register };

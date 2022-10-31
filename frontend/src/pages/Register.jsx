@@ -18,7 +18,6 @@ const Register = () => {
 		(state) => state.auth
 	);
 
-	console.log(user);
 
 	useEffect(() => {
 		if (isError) console.log(message);
