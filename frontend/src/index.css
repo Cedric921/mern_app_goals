@@ -81,12 +81,12 @@ form {
 }
 
 .btn-control {
-	padding: 8px;
+	padding: 6px;
 	margin: 5px;
 	border: 2px solid #686868;
 	background-color: #686868;
 	color: white;
-	font-size: 18px;
+	font-size: 16px;
 	font-weight: 700;
 	border-radius: 5px;
 	width: 400px;
