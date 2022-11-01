@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { register, reset } from '../features/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
@@ -19,9 +19,8 @@ const Register = () => {
 		(state) => state.auth
 	);
 
-
 	useEffect(() => {
-		if (isError) console.log(message);
+		if (isError) toast.error(message);
 		if (isSuccess || user) navigate('/');
 
 		dispatch(reset());
@@ -86,4 +85,4 @@ const Register = () => {
 	);
 };
 
-export default Register;
+export default memo(Register);

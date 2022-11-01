@@ -4,7 +4,6 @@ import axios from 'axios';
 // register func
 const register = async (userData) => {
 	const res = await axios.post(`${BACKEND_API}/api/users`, userData);
-	console.log(res);
 	if (res.data) localStorage.setItem('user', JSON.stringify(res.data));
 
 	return res.data;
@@ -12,7 +11,6 @@ const register = async (userData) => {
 
 const login = async (userData) => {
 	const res = await axios.post(`${BACKEND_API}/api/users/login`, userData);
-	console.log(res);
 	if (res.data) localStorage.setItem('user', JSON.stringify(res.data));
 
 	return res.data;

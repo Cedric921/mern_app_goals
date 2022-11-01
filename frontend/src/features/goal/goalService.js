@@ -1,7 +1,6 @@
 import { BACKEND_API } from '../../config/keys';
 import axios from 'axios';
 
-
 // create goal
 const createGoal = async (goalData, token) => {
 	const config = {
@@ -17,16 +16,28 @@ const createGoal = async (goalData, token) => {
 
 //  get goals
 const getGoals = async (token) => {
-   const config = {
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
-		};
+	const config = {
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	};
 
-		const res = await axios.get(`${BACKEND_API}/api/goals`, config);
+	const res = await axios.get(`${BACKEND_API}/api/goals`, config);
 
-		return res.data;
-}
+	return res.data;
+};
 
-const goalService = { createGoal, getGoals };
+const deleteGoal = async (id, token) => {
+	const config = {
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	};
+
+	const res = await axios.delete(`${BACKEND_API}/api/goals/${id}`, config);
+
+	return res.data;
+};
+
+const goalService = { createGoal, getGoals, deleteGoal };
 export default goalService;

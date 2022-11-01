@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { login, reset } from '../features/auth/authSlice';
@@ -62,4 +62,4 @@ const Login = () => {
 	);
 };
 
-export default Login;
+export default React.memo(Login);

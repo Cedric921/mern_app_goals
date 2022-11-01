@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import GoalForm from '../components/GoalForm';
@@ -9,7 +9,7 @@ import GoalItem from '../components/GoalItem';
 const Dashboard = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const { user } = useSelector((state) => state.auth);
+	const { user, isError : errorUser } = useSelector((state) => state.auth);
 	const { goals, isError, isLoading, message } = useSelector(
 		(state) => state.goals
 	);
@@ -18,14 +18,16 @@ const Dashboard = () => {
 
 	useEffect(() => {
 		if (isError) toast.dark(message);
-		if (!user) navigate('/login');
+		if (!user || errorUser) navigate('/login');
 
 		dispatch(getGoals());
+
+		console.log('running ')
 
 		return () => {
 			dispatch(reset());
 		};
-	}, [user, navigate, isError, message, dispatch]);
+	}, [user]);
 
 	if (isLoading) <p>loading ...</p>;
 	return (
@@ -52,4 +54,4 @@ const Dashboard = () => {
 	);
 };
 
-export default Dashboard;
+export default React.memo(Dashboard);
