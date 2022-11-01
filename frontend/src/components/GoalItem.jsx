@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteGoal, getGoals } from '../features/goal/goalSlice';
+import { deleteGoal } from '../features/goal/goalSlice';
 
 const GoalItem = ({ goal }) => {
 	const dispatch = useDispatch();
@@ -14,7 +14,6 @@ const GoalItem = ({ goal }) => {
 				className='btn-delete'
 				onClick={
 					() => dispatch(deleteGoal(goal._id))
-					// dispatch(getGoals())
 				}
 			>
 				X
